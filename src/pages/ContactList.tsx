@@ -49,7 +49,6 @@ const ContactList: React.FC = () => {
     const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (newContact.firstName && newContact.lastName ) {
-const stat =newContact?.status === true?true:false
               const contactWithId: Contact = {
         ...newContact,
         id: String(nextId), 
@@ -73,16 +72,12 @@ const stat =newContact?.status === true?true:false
     };
 
     //Function to format String 
-    const formatString=(str: string)=> {
-    if (typeof str !== 'string') {
-        return str;
-    }
-    
-    const lowercaseStr = str.toLowerCase();
-    const formattedStr = lowercaseStr.charAt(0).toUpperCase() + lowercaseStr.slice(1);
-    
-    return formattedStr;
-    }
+    const formatString = (str: string) => {
+        const words = str.toLowerCase().split(' ');
+        const formattedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+        const formattedString = formattedWords.join(' ');
+        return formattedString;
+    };
 
     return (
         <div className=' flex flex-col gap-y-16 w-[90vw]'>
@@ -135,9 +130,10 @@ const stat =newContact?.status === true?true:false
                                         <div className="contact-icon w-10 h-10 rounded-full flex bg-blue-500 text-white justify-center text-md items-center">{`${contact?.firstName[0].toUpperCase()} ${contact?.lastName[0].toUpperCase()}`}</div>
                                         <div className="contact-detail text-md ">
                                             <div className="first-name font-semibold text-gray-700">{formatString(contact?.firstName)}</div>
-                                            <div className="last-name  text-sm font-regular text-gray-500">{formatString(contact?.lastName)}</div>
+                                            <div className="last-name  text-sm font-regular text-gray-500">{formatString(contact.lastName)}</div>
                                         </div>
                                     </div>
+                                  
                                     <div className="contact-item-right w-10 ">
                                         <div className={`actve-indicator flex w-14 justify-center h-4 rounded-lg text-xs  p-1  items-center font-bold  ${contact.status?'bg-green-300 text-green-800':'bg-red-300 text-red-800'}`}>{contact.status?'Active':'InActive'}</div>
                                 </div>
